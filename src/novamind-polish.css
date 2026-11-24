@@ -1,0 +1,174 @@
+/* NovaMind — acabamento visual Aurora. Camada isolada, sem alterar o renderer. */
+:root {
+  --nm-bg: #090b10;
+  --nm-side: #0d1017;
+  --nm-panel: #11151e;
+  --nm-panel-raised: #171c27;
+  --nm-line: rgba(226, 231, 255, .09);
+  --nm-line-strong: rgba(226, 231, 255, .15);
+  --nm-ink: #f2f3f8;
+  --nm-muted: #a0a5b5;
+  --nm-dim: #777e91;
+  --nm-violet: #b4a5ff;
+  --nm-mint: #79dfb5;
+}
+
+html, body { background: var(--nm-bg); color: var(--nm-ink); }
+body {
+  font-family: "Segoe UI Variable", Aptos, "Segoe UI", sans-serif;
+  font-feature-settings: "cv01", "ss03";
+}
+::selection { background: rgba(180, 165, 255, .34); color: #fff; }
+button, input, textarea, select { font-family: inherit; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid rgba(180, 165, 255, .9);
+  outline-offset: 3px;
+}
+
+/* Navegação com contraste e hierarquia mais firmes */
+.sidebar {
+  background: linear-gradient(180deg, #10131b 0%, #0c0f15 100%);
+  border-right-color: var(--nm-line);
+  box-shadow: 10px 0 34px rgba(0, 0, 0, .12);
+}
+.brandmark {
+  background: linear-gradient(145deg, #c1b6ff 0%, #8170ed 58%, #5143a7 100%);
+  border-color: rgba(220, 214, 255, .44);
+  box-shadow: 0 5px 18px rgba(126, 105, 238, .24), inset 0 1px rgba(255,255,255,.34);
+}
+.newchat {
+  min-height: 42px;
+  border-color: rgba(180,165,255,.27);
+  background: linear-gradient(110deg, rgba(150,130,255,.17), rgba(150,130,255,.055));
+}
+.newchat:hover { border-color: rgba(190,178,255,.48); background: rgba(150,130,255,.16); }
+.nav.active { background: linear-gradient(90deg, rgba(150,130,255,.16), rgba(150,130,255,.055)); }
+.history-item { min-height: 34px; }
+.history-item.selected { border-color: rgba(180,165,255,.17); background: rgba(150,130,255,.095); }
+.profile { border-top-color: var(--nm-line); }
+.profile-avatar, .avatar { box-shadow: inset 0 1px rgba(255,255,255,.14); }
+.online-dot, .provider-light { background: var(--nm-mint); box-shadow: 0 0 0 3px rgba(121,223,181,.1), 0 0 12px rgba(121,223,181,.2); }
+
+/* Workspace limpo: brilho localizado, sem competir com o conteúdo */
+.main-area {
+  background: radial-gradient(ellipse at 52% -20%, rgba(103,84,190,.16), transparent 47%), #0a0c12;
+}
+.main-area::before {
+  background-image: linear-gradient(rgba(255,255,255,.014) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.014) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: .22;
+}
+.topbar {
+  min-height: 58px;
+  border-bottom-color: var(--nm-line);
+  background: rgba(12, 14, 21, .88);
+  backdrop-filter: blur(16px);
+}
+.workspace-crumb { color: #b5b8c6; }
+.provider-wrap { border-color: var(--nm-line); background: rgba(255,255,255,.035); }
+.provider-wrap:focus-within, .provider-wrap:hover { border-color: var(--nm-line-strong); }
+
+/* Entrada de conversa e sugestões rápidas */
+.chat-scroll { max-width: 960px; }
+.welcome h1, .page-heading h1 { text-wrap: balance; }
+.welcome h1 { letter-spacing: -1.2px; }
+.welcome p { color: #a4a8b7; }
+.suggestions::before { color: #8d92a4; }
+.suggestions button {
+  min-height: 56px;
+  border-color: rgba(226,231,255,.055);
+  background: rgba(255,255,255,.025);
+}
+.suggestions button > span { background: rgba(150,130,255,.1); }
+.suggestions button:hover {
+  border-color: rgba(180,165,255,.27);
+  background: rgba(150,130,255,.08);
+}
+.suggestions button:active, .newchat:active, .primary:active, .send:active { transform: translateY(1px); }
+
+/* Composer em destaque, com ferramentas mais legíveis */
+.composer-area { max-width: 960px; }
+.composer {
+  border-color: rgba(226,231,255,.13);
+  background: linear-gradient(150deg, rgba(24,27,39,.99), rgba(16,19,28,.99));
+  box-shadow: 0 18px 48px rgba(0,0,0,.34), inset 0 1px rgba(255,255,255,.045);
+}
+.composer:focus-within {
+  border-color: rgba(180,165,255,.48);
+  box-shadow: 0 0 0 3px rgba(150,130,255,.08), 0 20px 50px rgba(0,0,0,.38);
+}
+.composer textarea { line-height: 1.6; }
+.toolbtn { min-height: 30px; }
+.toolbtn:hover { background: rgba(255,255,255,.065); }
+.model-select select, .intelligence-select select { max-width: 155px; }
+.send {
+  width: 36px; height: 36px; border-radius: 11px;
+  background: linear-gradient(145deg, #d0c8ff, #a493ff 70%, #8471ef);
+  box-shadow: 0 5px 18px rgba(126,105,255,.22), inset 0 1px rgba(255,255,255,.38);
+}
+.send:hover { filter: brightness(1.08); }
+.composer-note { color: #858a9b; letter-spacing: .08px; }
+.message { line-height: 1.78; }
+.message.user { border-color: rgba(180,165,255,.2); background: linear-gradient(135deg, rgba(110,94,191,.2), rgba(48,45,71,.48)); }
+.message .role { letter-spacing: 1px; }
+
+/* Projetos, configurações e terminal */
+.page-wrap { max-width: 1120px; }
+.page-heading { margin-bottom: 29px; }
+.page-heading h1 { letter-spacing: -.9px; }
+.workspace-card, .settingcard {
+  border-color: var(--nm-line);
+  background: linear-gradient(150deg, rgba(21,24,34,.96), rgba(15,18,26,.98));
+  box-shadow: 0 10px 30px rgba(0,0,0,.11), inset 0 1px rgba(255,255,255,.02);
+}
+.workspace-title { border-bottom-color: var(--nm-line); }
+.settingcard input:not([type=radio]) { min-height: 38px; }
+.perm, .levels button { transition: background .16s ease, border-color .16s ease, transform .16s ease; }
+.perm:hover, .levels button:hover { border-color: var(--nm-line-strong); }
+.perm:has(input:checked), .levels button.chosen {
+  border-color: rgba(180,165,255,.34);
+  background: rgba(150,130,255,.1);
+}
+.warningbox { line-height: 1.6; }
+.terminal { box-shadow: 0 14px 38px rgba(0,0,0,.22); }
+
+/* Painel de execução: leitura rápida de estado e etapas */
+.task-progress-card {
+  border-color: rgba(180,165,255,.19);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(25,27,41,.98), rgba(16,18,27,.98));
+  box-shadow: 0 12px 32px rgba(0,0,0,.2), inset 0 1px rgba(255,255,255,.035);
+}
+.task-progress-symbol { color: #d0c8ff; }
+.task-progress-state.is-running { border-color: rgba(180,165,255,.25); }
+.task-progress-state.is-done { border-color: rgba(121,223,181,.28); color: #a2eacb; background: rgba(39,111,81,.18); }
+.task-progress-stats > div { background: rgba(255,255,255,.027); }
+.task-progress-stats span { color: #a0a5b5; }
+.task-progress-timeline { max-height: 300px; }
+.task-progress-step { border-bottom-color: rgba(255,255,255,.065); }
+.task-progress-step.running .task-step-icon { animation: nm-pulse 1.8s ease-in-out infinite; }
+.task-step-copy small { color: #a0a5b5; }
+.task-progress-foot { color: #8d92a3; }
+.task-progress-files summary { color: #c2c4d0; }
+#screenStatus { line-height: 1.5; }
+
+footer { border-top-color: var(--nm-line); background: rgba(9,11,16,.92); }
+
+@keyframes nm-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(180,165,255,0); }
+  50% { box-shadow: 0 0 0 4px rgba(180,165,255,.09); }
+}
+
+@media (max-width: 900px) {
+  .chat-scroll, .composer-area { max-width: 100%; }
+  .suggestions button { min-height: 54px; }
+}
+@media (max-width: 620px) {
+  .topbar { backdrop-filter: none; }
+  .composer-note { font-size: 8px; line-height: 1.5; }
+  .task-progress-card { border-radius: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .task-progress-step.running .task-step-icon { animation: none; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}

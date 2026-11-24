@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:;">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#212121">
+  <title>NovaMind</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="novamind-theme.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="side-head">
+      <div class="brand"><div class="brandmark">N</div><span>NovaMind</span></div>
+      <button class="iconbtn side-toggle" id="sidebarToggle" title="Recolher barra lateral">☰</button>
+    </div>
+    <button class="newchat" id="newChat"><span class="plus">＋</span><span>Nova conversa</span><kbd>Ctrl K</kbd></button>
+    <div class="side-section">
+      <div class="side-label">WORKSPACE</div>
+      <button class="nav active" data-view="chat"><span class="nav-icon">◈</span><span>Chat</span></button>
+      <button class="nav" data-view="files"><span class="nav-icon">▤</span><span>Projetos</span></button>
+      <button class="nav" data-view="terminal"><span class="nav-icon">&gt;_</span><span>Terminal</span></button>
+    </div>
+    <div class="history-section">
+      <div class="side-label history-label">RECENTES</div>
+      <div class="history-list" id="historyList"><div class="history-empty">Suas conversas recentes aparecerão aqui.</div></div>
+    </div>
+    <div class="side-bottom">
+      <button class="nav" data-view="settings"><span class="nav-icon">⚙</span><span>Configurações</span></button>
+      <div class="profile"><div class="profile-avatar">N</div><div class="profile-copy"><b>NovaMind Local</b><small id="connectionText">Verificando conexão...</small></div><span class="online-dot"></span></div>
+    </div>
+  </aside>
+
+  <main class="main-area">
+    <header class="topbar">
+      <div class="top-left"><span class="mobile-brand">NovaMind</span><span class="workspace-crumb" id="topContext">Workspace <span>/</span> Chat</span></div>
+      <div class="top-actions">
+        <div class="provider-wrap"><span class="provider-light"></span><select id="provider" aria-label="Provedor"><option value="ollama">Ollama local</option><option value="hermes">Hermes Agent</option><option value="openai">API compatível</option></select></div>
+        <button class="iconbtn" id="settingsShortcut" title="Configurações">⚙</button>
+        <div class="avatar">N</div>
+      </div>
+    </header>
+
+    <section class="view chat-view" id="chatView">
+      <div class="chat-scroll" id="chat">
+        <div class="welcome">
+          <div class="welcome-mark">✳</div>
+          <h1>Em que posso ajudar?</h1>
+          <p>Crie, investigue e desenvolva com sua IA local.</p>
+          <div class="suggestions">
+            <button data-prompt="Analise a estrutura do meu projeto e sugira melhorias."><span>⌘</span><b>Analisar projeto</b><small>Entenda arquivos e arquitetura</small></button>
+            <button data-prompt="Ajude-me a criar um aplicativo moderno com Electron."><span>▧</span><b>Criar aplicativo</b><small>Transforme uma ideia em código</small></button>
+            <button data-prompt="Explique este erro e proponha uma correção passo a passo."><span>⌁</span><b>Depurar código</b><small>Investigue erros e soluções</small></button>
+          </div>
+        </div>
+      </div>
+      <div class="composer-area">
+        <div class="composer">
+          <textarea id="prompt" rows="1" placeholder="Pergunte qualquer coisa"></textarea>
+          <div id="visualAttachments"></div><div id="screenStatus" role="status"></div><input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden>
+          <div class="composer-bottom">
+            <div class="composer-tools">
+              <button class="toolbtn" id="workspaceShortcut" title="Abrir projetos">＋ <span>Adicionar contexto</span></button>
+              <button class="toolbtn" id="attachImage" title="Anexar imagens">🖼 Imagem</button><label class="model-select"><span>Modelo</span><select id="model"><option value="">Carregue os modelos</option></select></label>
+              <label class="intelligence-select"><span>·</span><select id="intelligence"><option value="low">Rápido</option><option value="medium">Equilibrado</option><option value="high">Profundo</option><option value="max" selected>Máximo</option></select></label>
+            </div>
+            <div class="composer-send"><span id="modeHint">Equilibrado</span><button class="send" id="send" title="Enviar mensagem" aria-label="Enviar mensagem">↑</button></div>
+          </div>
+        </div>
+        <div class="composer-note">Pesquisa web · memória por conversa · execução verificada · proteção inteligente para ações críticas</div>
+      </div>
+    </section>
+
+    <section class="view hidden" id="filesView">
+      <div class="page-wrap"><div class="page-heading"><div><span class="eyebrow">CODEX WORKSPACE</span><h1>Seus projetos</h1><p>Abra uma pasta para explorar e trabalhar nos arquivos do projeto.</p></div><button class="primary" id="chooseWorkspace">＋ Abrir pasta</button></div>
+        <div class="workspace-card"><div class="workspace-title"><span class="folder-icon">▰</span><div><b>Workspace ativo</b><small id="workspacePath">Nenhuma pasta selecionada</small></div></div><div id="fileList" class="filelist"><div class="empty-state">Selecione uma pasta para visualizar os arquivos.</div></div></div>
+        <div class="workspace-card activity-card"><div class="workspace-title"><span class="folder-icon">◷</span><div><b>Atividade desta conversa</b><small>Pastas e arquivos abertos por você nesta conversa</small></div></div><div id="activityList" class="activity-list"></div></div>
+        <p class="note">O acesso a arquivos fica limitado às pastas autorizadas. Comandos locais exigem confirmação. O NovaMind não controla livremente a área de trabalho do Windows.</p>
+      </div>
+    </section>
+
+    <section class="view hidden" id="terminalView">
+      <div class="page-wrap"><div class="page-heading"><div><span class="eyebrow">LOCAL DEVELOPMENT</span><h1>Terminal</h1><p>Execute e valide comandos no ambiente local.</p></div><span class="pill warning">LOCAL · WINDOWS</span></div>
+        <div class="terminal"><div class="termbar"><div class="term-dots"><i></i><i></i><i></i></div><span>PowerShell</span><span class="term-local">LOCAL</span></div><pre id="termOutput">Terminal pronto. Selecione o modo Avançado nas configurações para habilitar comandos.</pre><div class="termline"><span>PS ›</span><input id="command" placeholder="Digite um comando..." /><button id="runCommand">Executar ↗</button></div></div>
+        <p class="note">Os comandos usam sua conta Windows. A proteção verifica riscos, mascara segredos comuns na saída, limita a execução e registra apenas hash/resultado em userData/audit/actions.jsonl.</p>
+      </div>
+    </section>
+
+    <section class="view hidden" id="settingsView">
+      <div class="page-wrap"><div class="page-heading"><div><span class="eyebrow">PREFERÊNCIAS</span><h1>Configurações</h1><p>Conexões, modelos e permissões do ambiente.</p></div></div>
+        <div class="settingsgrid">
+          <div class="settingcard"><div class="card-icon">◎</div><h3>Internet e navegação</h3><p class="muted">Pesquisa automática na web para perguntas sobre assuntos atuais, sites, documentação, preços e notícias. Lê o conteúdo de até três páginas públicas por pesquisa.</p><div class="note">Pesquisa via DuckDuckGo, sem chave de API. O acesso depende da conexão de internet e de os sites permitirem leitura automatizada.</div></div>
+          <div class="settingcard"><div class="card-icon">◉</div><h3>Ollama local</h3><p class="muted">Conecte aos modelos instalados na sua máquina.</p><label>Endereço<input id="ollamaBase" value="http://127.0.0.1:11434"></label><button class="secondary" id="refreshModels">↻ Atualizar modelos</button><div id="modelStatus" class="muted">Aguardando conexão</div></div>
+          <div class="settingcard"><div class="card-icon">⌘</div><h3>Hermes Agent</h3><p class="muted">Conecte ao servidor do Hermes Agent.</p><label>Endereço base<input id="hermesBase" value="http://127.0.0.1:8642/v1"></label><label>Chave do servidor<input id="hermesKey" type="password" placeholder="API_SERVER_KEY"></label><button class="secondary" id="testHermes">↻ Testar conexão</button><div id="hermesStatus" class="muted">Servidor ainda não testado.</div><div class="note">O NovaMind inicia o Hermes automaticamente ao abrir o aplicativo.</div></div>
+          <div class="settingcard"><div class="card-icon">◇</div><h3>API compatível</h3><p class="muted">Use um endpoint compatível com a API da OpenAI.</p><label>Endpoint<input id="apiBase" placeholder="https://api.openai.com/v1"></label><label>Modelo<input id="apiModel" placeholder="gpt-4o-mini"></label><label>Chave API<input id="apiKey" type="password" placeholder="Sua chave API"></label><button class="secondary" id="saveSettings">Salvar configurações</button></div>
+          <div class="settingcard wide"><h3>Nível de inteligência</h3><p class="muted">O modo Máximo ativa instruções mais cuidadosas, mais contexto local e revisão dos resultados. A capacidade real também depende do modelo de IA selecionado.</p><div class="levels"><button data-level="low">Rápido<small>Respostas diretas</small></button><button data-level="medium">Equilibrado<small>Uso geral</small></button><button data-level="high">Profundo<small>Análise cuidadosa</small></button><button data-level="max" class="chosen">Máximo<small>Mais contexto</small></button></div></div>
+          <div class="settingcard wide"><h3>Estilo de resposta do modelo</h3><p class="muted">Reduz recusas desnecessárias em assuntos sensíveis, controversos, educacionais, históricos, técnicos e fictícios. Não remove filtros internos do provedor/modelo, nem altera as proteções de execução do computador.</p><label class="direct-mode-toggle"><input id="directMode" type="checkbox" checked><span><b>Modo direto ativado</b><small>Não presumir má intenção, evitar sermões e responder ao máximo permitido pelo modelo e pelo contexto.</small></span></label><div class="note">Para ter maior controle sobre filtros do provedor, use um modelo local no Ollama. Mesmo modelos locais podem ter recusas incorporadas no próprio treinamento ou no template.</div></div>
+          <div class="settingcard wide"><h3>Permissões do ambiente</h3><p class="muted">Defina o que o assistente pode fazer neste PC. No Modo Irrestrito, tarefas comuns são automáticas; ações sensíveis passam por proteção adicional.</p><div class="permissionlist"><label class="perm"><input type="radio" name="perm" value="chat"><span><b>Somente chat</b><small>Sem leitura ou alteração de arquivos.</small></span></label><label class="perm"><input type="radio" name="perm" value="workspace" checked><span><b>Workspace</b><small>Ler arquivos nas pastas autorizadas.</small></span></label><label class="perm"><input type="radio" name="perm" value="advanced"><span><b>Avançado</b><small>Arquivos autorizados e comandos com confirmação.</small></span></label><label class="perm"><input type="radio" name="perm" value="unrestricted"><span><b>Modo Irrestrito — este PC</b><small>Comandos comuns e acesso a arquivos pela sua conta Windows, sem confirmação individual. Ações destrutivas/sensíveis pedem confirmação; operações críticas são bloqueadas.</small></span></label></div><div class="warningbox">Proteção inteligente: bloqueia operações de alto risco contra discos, credenciais e segurança do Windows; pede confirmação para exclusões recursivas, Registro, serviços, desinstalações e scripts baixados. O NovaMind não eleva privilégios nem contorna o UAC. Ações e resultados são registrados localmente para auditoria.</div><button class="primary" id="applyPerm">Aplicar permissões</button></div>
+        </div>
+      </div>
+    </section>
+    <footer><span>NovaMind <b>Desktop</b></span><span>LOCAL-FIRST · SEUS DADOS FICAM NO SEU AMBIENTE</span></footer>
+  </main>
+</div>
+<script src="agent-safety.js"></script>
+<script src="renderer.js"></script>
+</body>
+</html>

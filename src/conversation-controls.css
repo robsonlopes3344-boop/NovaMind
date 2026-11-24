@@ -1,0 +1,21 @@
+/* Refined conversation navigation and action controls */
+.history-heading{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:0 4px 7px 0}
+.history-heading .side-label{padding:0 6px 0 10px}
+.archive-toggle{padding:4px 7px;border:1px solid transparent;border-radius:7px;background:transparent;color:#8a8378;font-size:9px;cursor:pointer;white-space:nowrap;transition:background .16s,color .16s,border-color .16s}
+.archive-toggle:hover,.archive-toggle[aria-pressed="true"]{border-color:#e6d8cc;background:#f5ede6;color:#884832}
+.history-row{position:relative;display:flex;align-items:center;gap:2px;margin:2px 0}
+.history-item{min-width:0;flex:1;margin:0;padding:8px 9px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.history-actions{display:flex;flex:0 0 auto;gap:1px;opacity:0;transition:opacity .15s ease}
+.history-row:hover .history-actions,.history-row:focus-within .history-actions{opacity:1}
+.history-actions button{width:23px;height:25px;display:grid;place-items:center;padding:0;border:1px solid transparent;border-radius:6px;background:transparent;color:#898377;font-size:13px;line-height:1;cursor:pointer}
+.history-actions button:hover{border-color:#e7ddd1;background:#fffefa;color:#8d482f}
+.history-actions button:last-child:hover{border-color:#efd0cc;background:#fff0ee;color:#aa463c}
+.history-actions button:focus-visible,.archive-toggle:focus-visible{outline:2px solid rgba(189,91,62,.35);outline-offset:1px}
+.history-list{scrollbar-width:thin;scrollbar-color:#d8d0c4 transparent}
+.topbar{box-shadow:0 1px 0 rgba(255,255,255,.35)}
+.composer{transition:box-shadow .2s ease,border-color .2s ease,transform .2s ease}
+.composer:focus-within{transform:translateY(-1px)}
+.message.ai{max-width:780px}
+@media(max-width:900px){.history-actions{opacity:1}.history-actions button{width:21px}}
+@media(max-width:620px){.history-heading{justify-content:center}.archive-toggle{display:none}.history-actions{display:none}.history-row{width:100%}}
+@media(prefers-reduced-motion:reduce){.history-actions,.composer{transition:none}}

@@ -1,0 +1,53 @@
+{
+  "name": "novamind-electron",
+  "version": "1.0.0",
+  "description": "NovaMind Desktop com Hermes Agent integrado e inicialização automática local",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "test": "node --test tests/*.test.js",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.novamind.desktop",
+    "productName": "NovaMind",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "scripts/**/*",
+      "README.md",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "artifactName": "NovaMind-Setup-${version}.${ext}"
+    },
+    "asarUnpack": [
+      "scripts/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "scripts",
+        "to": "scripts",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NovaMind"
+    }
+  }
+}

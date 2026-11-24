@@ -1,0 +1,11 @@
+NovaMind - atualização de resposta local (RANA 9B, porta 11436)
+
+1. Extraia todos os arquivos do ZIP numa pasta.
+2. Feche o NovaMind (não precisa fechar o servidor DirectX).
+3. Execute INSTALAR.bat. Ele confere a versão de main.js, renderer.js e preload.js antes de substituir e salva backup.
+4. Abra o NovaMind pelo BAT habitual. Mantenha API compatível selecionada e o endpoint http://127.0.0.1:11436/v1.
+5. Selecione Rápido para desligar o Thinking nessa modalidade. Saudações simples usam resposta curta e mostram texto incremental; outras tarefas mostram progresso até a resposta final validada.
+
+Não altera o motor, contexto de 16384, histórico salvo, permissões, proteção de comandos, CSS, HTML, Hermes ou Ollama. Para tarefas de agente, não executa fragmentos de respostas. O timeout local passa de 3 para 30 minutos; o botão Parar continua disponível. A velocidade física em tokens/s não aumenta por causa do streaming. Uma primeira mensagem de tarefa evita duplicar o pedido na memória de sistema; conversas existentes mantêm a memória. Se a versão divergir, o instalador não modifica nenhum arquivo: envie renderer.js e preload.js atuais. Para voltar, feche o NovaMind e copie os arquivos da pasta backup-rana-* indicada para a pasta src.
+
+Validação de sintaxe e testes isolados; não testado em Electron/Windows ou com sua RX550 nesta sessão.
